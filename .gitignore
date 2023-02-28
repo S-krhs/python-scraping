@@ -3,3 +3,4 @@
 StubImput-format.json
 ScrapingFormat.json
 Output/
+__pycache__/
