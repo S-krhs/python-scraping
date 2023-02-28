@@ -1,0 +1,5 @@
+# .gitignoreファイルに追加する
+.env
+StubImput-format.json
+ScrapingFormat.json
+Output/

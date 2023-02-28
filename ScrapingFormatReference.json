@@ -1,0 +1,38 @@
+{
+    "PageName":"",
+    "TableName":"",
+    "Format":{
+        "URL":"",
+        "Renderer":"default-renderer",
+        "Main":{
+            "IdentifyMethod":"None/Class/Tag/Tag-Class",
+            "Tag":"",
+            "Class":""
+        },
+        "Animes":{
+            "IdentifyMethod":"Class/Tag/Tag-Class",
+            "Tag":"",
+            "Class":""
+        },
+        "Features":[
+            {
+                "FeatureName":"Title",
+                "FeatureType":"String/Integer",
+                "IdentifyMethod":"Class/Tag/Tag-Class",
+                "Tag":"",
+                "Class":"",
+
+                "ShapingFunction":"default"
+            },
+            {
+                "FeatureName":"",
+                "FeatureType":"String/Integer",
+                "IdentifyMethod":"Class/Tag/Tag-Class",
+                "Tag":"",
+                "Class":"",
+
+                "ShapingFunction":"default"
+            }
+        ]
+    }
+}
