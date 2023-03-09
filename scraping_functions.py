@@ -5,7 +5,7 @@ from requests_html import AsyncHTMLSession
 from bs4 import BeautifulSoup
 import pandas as pd
 
-# ---Functions---
+# ---SubFunctions---
 
 # --page renderers--
 # "RenderingFunction":"default-renderer"
@@ -79,7 +79,7 @@ function_map={
     "rank-shaper-001":rank_shaper_001
 }
 
-# ---Functions end---
+# ---SubFunctions end---
 
 
 # Select renderer and Get HTML
@@ -143,56 +143,3 @@ def shaping(page_data,format):
         df = pd.concat([df, df_add], ignore_index=True, axis=0)
     
     return df
-
-# Main function     
-def main():
-    # Program Execution with Exception Handling
-    
-    # Get Scraping Pages List
-    try:
-        with open("./StubImput-format.json","r") as imput:
-            data=json.load(imput)
-        print("JSON file loaded successfully\n")
-        
-    except Exception as e:
-        print("Error occurred:", e)
-        print("StackTrace:", traceback.format_exc())
-        return
-
-    # Scraping per page
-    for page in data:
-        # Scraping with Exception Handling
-        try:  
-            # Start Scraping
-            print("Scraping process started on ",page["PageName"])
-            format = page["Format"]
-            
-            # Get HTML
-            print("HTML request started...")
-            loop = asyncio.new_event_loop()
-            page_data = loop.run_until_complete(getHTML(format))
-            page_data.raise_for_status()
-            print("HTML data retrieved successfully")
-                    
-            # Create DataFrame and Input Data"
-            df = shaping(page_data, format)
-            print("Data shaping completed successfully")
-            
-            # Output Data
-            path="./Output/"+page["PageName"]+".csv"
-            df.to_csv(path)
-            print("Data saved to file successfully\n")
-   
-        except Exception as e:
-            print("Error occurred:", e)
-            print("StackTrace:", traceback.format_exc())
-            # If error occurred go to next page
-            continue
-            
-    print("All scraping process completed")
-
-    return
-
-# Execution
-if __name__ == '__main__':
-    main()

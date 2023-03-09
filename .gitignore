@@ -2,5 +2,6 @@
 .env
 StubImput-format.json
 ScrapingFormat.json
-Output/
+Output/*
+FormatsArchive/*
 __pycache__/
