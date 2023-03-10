@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, JSON, DateTime
 from database_setting import Engine, Base, Session
-from database_class import ScrapingFormatTableClass, CreateTmpTableClass
+from database_class import ScrapingFormatTableClass
 import json
 import asyncio
 import traceback
@@ -23,7 +22,7 @@ def main():
                 "Format": json.loads(record.Format)
             }
             pages.append(record_dict)
-        print(pages)
+        # print(pages)
     except Exception as e:
         print("Error occurred:", e)
         print("StackTrace:", traceback.format_exc())
@@ -49,9 +48,8 @@ def main():
             print("Data shaping completed successfully.")
             
             # Output Data
-            TableClass=CreateTmpTableClass(page)
-            
-            
+            df.to_sql(name = page["TableName"], con = Engine, if_exists='append', index= False)
+            print("Data saved to database successfully.\n")
             
             # path="./Output/"+page["PageName"]+".csv"
             # df.to_csv(path)

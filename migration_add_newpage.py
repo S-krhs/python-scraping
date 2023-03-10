@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, JSON, DateTime
 from database_setting import Engine, Base, Session, Inspector
-from database_class import ScrapingFormatTableClass, CreateTmpTableClass
+from database_class import ScrapingFormatTableClass, create_tmp_table_class
 
 import json
 import asyncio
@@ -74,7 +74,7 @@ def main():
     # Migration, Registration and Archive
     try:      
         # Migration datatable
-        CreateTmpTableClass(page)
+        create_tmp_table_class(page)
         
         # Registration format
         add_data = ScrapingFormatTableClass(PageName=(page["PageName"]),TableName=(page["TableName"]),Format=json.dumps(page["Format"]))

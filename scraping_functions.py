@@ -4,6 +4,7 @@ import traceback
 from requests_html import AsyncHTMLSession
 from bs4 import BeautifulSoup
 import pandas as pd
+from datetime import datetime
 
 # ---SubFunctions---
 
@@ -32,6 +33,8 @@ def s2s_find(soup,style):
         res = soup.find(class_=style["Class"])
     elif style["IdentifyMethod"]=="Tag":
         res = soup.find(style["Tag"])
+    elif style["IdentifyMethod"]=="Id":
+        res = soup.find_all(style["Id"])
     elif style["IdentifyMethod"]=="Tag-Class":
         res = soup.find(style["Tag"],class_=style["Class"])
     else:
@@ -44,6 +47,8 @@ def s2sArray_find_all(soup,style):
         res = soup.find_all(class_=style["Class"])
     elif style["IdentifyMethod"]=="Tag":
         res = soup.find_all(style["Tag"])
+    elif style["IdentifyMethod"]=="Id":
+        res = soup.find_all(style["Id"])
     elif style["IdentifyMethod"]=="Tag-Class":
         res = soup.find_all(style["Tag"],class_=style["Class"])
     else:
@@ -109,15 +114,16 @@ def shaping(page_data,format):
         raise ValueError("Animes containts is None. Please check IdentifyMethod and Class value in Format-Animes.")
     
     # Create dataframe
-    columns=[]
+    columns=["date"]
     for feature in format["Features"]:
         columns.append(feature["FeatureName"])
     df = pd.DataFrame(columns=columns)
     
     # Imput data into dataframe
+    today = datetime.utcnow().date()
     for i,soup_anime in enumerate(soup_animes):
         # Inisialize add_list
-        add_list=[[]]
+        add_list=[[today]]
     
         # Shaping data
         for feature in format["Features"]:
