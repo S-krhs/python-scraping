@@ -10,7 +10,7 @@ def main():
 
     # Get Scraping Pages List
     try:
-        pageName="9anime"
+        pageName=""
         with open("./FormatsArchive/"+pageName+"Format.json","r") as f:
             page=json.load(f)
         print("Scraping format JSON loaded successfully.\n")

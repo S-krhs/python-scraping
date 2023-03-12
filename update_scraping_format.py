@@ -14,7 +14,7 @@ import scraping_functions as sc
 def main():
     # Get registration data from "ScrapingFormat.json"
     try:
-        pageName="9anime"
+        pageName=""
         with open("./FormatsArchive/"+pageName+"Format.json","r") as f:
             page=json.load(f)
         print("Scraping format JSON loaded successfully.\n")
