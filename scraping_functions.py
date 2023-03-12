@@ -33,10 +33,8 @@ def s2s_find(soup,style):
         res = soup.find(class_=style["Class"])
     elif style["IdentifyMethod"]=="Tag":
         res = soup.find(style["Tag"])
-    elif style["IdentifyMethod"]=="Id":
-        res = soup.find_all(style["Id"])
-    elif style["IdentifyMethod"]=="Tag-Class":
-        res = soup.find(style["Tag"],class_=style["Class"])
+    elif style["IdentifyMethod"] in style:
+        res = soup.find(style["Tag"], {style["IdentifyMethod"]:style[style["IdentifyMethod"]]})
     else:
         raise NameError("Unexpected IdentifyMethod Value")
     return res
@@ -49,11 +47,12 @@ def s2sArray_find_all(soup,style):
         res = soup.find_all(style["Tag"])
     elif style["IdentifyMethod"]=="Id":
         res = soup.find_all(style["Id"])
-    elif style["IdentifyMethod"]=="Tag-Class":
-        res = soup.find_all(style["Tag"],class_=style["Class"])
+    elif style["IdentifyMethod"] in style:
+        res = soup.find_all(style["Tag"], {style["IdentifyMethod"]:style[style["IdentifyMethod"]]})
     else:
         raise NameError("Unexpected IdentifyMethod Value")
     return res
+    
 # --soup source shaper end--
 
 
@@ -72,6 +71,10 @@ def title_shaper_001(param,i):
 def rank_shaper_001(param,j):
     res = j+1
     return res
+
+def int_shaper_001(param,j):
+    res=param.replace(",","")
+    return res
 # --str data shaper end--
 
 
@@ -81,7 +84,8 @@ function_map={
     "renderer-001":render_001,
     
     "title-shaper-001":title_shaper_001,
-    "rank-shaper-001":rank_shaper_001
+    "rank-shaper-001":rank_shaper_001,
+    "int-shaper-001":int_shaper_001
 }
 
 # ---SubFunctions end---
@@ -131,7 +135,10 @@ def shaping(page_data,format):
             soup_param=s2s_find(soup_anime,feature)
             if soup_param is None:
                 print(feature["FeatureName"]," containts is None. Please check IdentifyMethod and Class value in Format-Feature.")
-                add_list[0].append("")
+                if feature["FeatureType"]=="Integer":
+                    add_list[0].append(0)
+                else:
+                    add_list[0].append("")
                 continue
             
             # Extract text

@@ -6,7 +6,6 @@ from sqlalchemy.sql.functions import current_timestamp
 # Class for ScrapingFormat Table
 class ScrapingFormatTableClass(Base):
     __tablename__ = "ScrapingFormat"
-    BASE_TZ = 'Asia/Tokyo'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     PageName = Column(String(255))
